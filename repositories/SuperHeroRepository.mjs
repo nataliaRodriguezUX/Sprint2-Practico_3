@@ -11,9 +11,7 @@ class SuperHeroRepository extends Irepository {
         }
         return await SuperHero.findById(id);
     }
-   /* async obtenerPorId (id) {
-        return await SuperHero.findById(id);
-    }*/
+ 
 
 
     async obtenerTodos () {
@@ -23,11 +21,20 @@ class SuperHeroRepository extends Irepository {
     async buscarPorAtributo(atributo , valor ) { 
         return await SuperHero.find({[atributo]:valor});
     }
-
+/*
     async obtenerMayoresDe30 () {
         return await SuperHero.find({edad:{$gt:30}});
 
+    }cambiada por la que esta */
+    async obtenerMayoresDe30 () {
+        return await SuperHero.find({
+            edad: { $gt: 30 },
+            planetaOrigen: 'Tierra',
+            $expr: { $gte: [{ $size: "$poderes" }, 2] } 
+        });
     }
+            
+        
 
 }
 
@@ -44,4 +51,4 @@ export function obtenerSuperheroesMayoresDe30() {
     const superheroes = repository.obtenerTodos();
     return superheroes.filter(hero =>
         hero.edad >30 && hero.planetaOrigen=== 'Tierra' && hero.poder.length >= 2
-    );*/
+    )*/
